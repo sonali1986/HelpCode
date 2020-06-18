@@ -89,10 +89,10 @@ public class ToGetContactRoleIdHandler {
             mail.setSubject(et.Subject);
 			
 			String htmlBody = et.HtmlValue;
-			if(oppConMap.isEmpty() && oppConMap.get(oppObj.PM_ID__c) != null){
+			if(!oppConMap.isEmpty() && oppConMap.get(oppObj.PM_ID__c) != null){
 				htmlBody = htmlBody.replace('{!Contact.FirstName}',oppConMap.get(oppObj.PM_ID__c).firstName);
 			}
-            htmlBody = htmlBody.replace('{!oppportunity.Name}',oppObj.Name);
+            htmlBody = htmlBody.replace('{!Opportunity.Name}',oppObj.Name);
 			mail.setHtmlBody(htmlBody);
 			oppEmails.add(mail);
 			
