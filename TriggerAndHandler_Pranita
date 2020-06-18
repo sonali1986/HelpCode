@@ -66,13 +66,19 @@ public class ToGetContactRoleIdHandler {
 			String[] toAddresses = new String[] {oppObj.PM_Contact_role_email__c};
             mail.setToAddresses(toAddresses);
             System.debug('@toAddresses'+toAddresses);
-			
-			List<String> ccAddresses = new List<String>{oppObj.Client_Services_Lead_Email__c ,oppObj.Owner.Email};
-            if(ccAddresses[0]==null){
-               ccAddresses[0]='priya.ranjan@nielsen.com';
-            }
+	    List<String> ccAddresses = new List<String>();
+	    
+	    if(!String.isBlank(oppObj.Client_Services_Lead_Email__c))
+	    	ccAddresses.add(oppObj.Client_Services_Lead_Email__c);
+		
+	    if(!String.isBlank(oppObj.Owner.Email))
+	    	ccAddresses.add(oppObj.Owner.Email);
+	    
+	    if(ccAddresses.isEmpty())
+               ccAddresses.add('priya.ranjan@nielsen.com');
+            
             mail.setCcAddresses(ccAddresses);
-			System.debug('@ccAddresses'+ccAddresses);
+	    System.debug('@ccAddresses'+ccAddresses);
             mail.setTargetObjectId(oppObj.PM_ID__c);
             mail.setTemplateID(et.Id); 
             if ( owea.size() > 0 ) {
